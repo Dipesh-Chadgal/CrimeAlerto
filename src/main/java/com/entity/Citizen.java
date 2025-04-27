@@ -2,6 +2,7 @@ package com.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "citizen")
@@ -32,6 +33,9 @@ public class Citizen {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "witness", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Complaint> complaints;
 
     // Getters and Setters
     public Integer getUuid() {
@@ -96,5 +100,13 @@ public class Citizen {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Complaint> getComplaints() {
+        return complaints;
+    }
+
+    public void setComplaints(List<Complaint> complaints) {
+        this.complaints = complaints;
     }
 }
