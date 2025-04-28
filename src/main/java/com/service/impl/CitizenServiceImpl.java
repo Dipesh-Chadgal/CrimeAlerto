@@ -2,6 +2,7 @@ package com.service.impl;
 
 
 import com.repository.CitizenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dto.CitizenDTO.CitizenRegister;
