@@ -27,10 +27,10 @@ public class Citizen {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "location_lat", nullable = false)
+    @Column(name = "location_lat")
     private Double locationLat;
 
-    @Column(name = "location_long", nullable = false)
+    @Column(name = "location_long")
     private Double locationLong;
 
     @CreationTimestamp
