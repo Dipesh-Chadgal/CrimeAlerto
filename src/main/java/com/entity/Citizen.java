@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "citizen")
 public class Citizen {
@@ -31,6 +33,7 @@ public class Citizen {
     @Column(name = "location_long", nullable = false)
     private Double locationLong;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
