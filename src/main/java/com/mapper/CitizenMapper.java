@@ -1,8 +1,11 @@
 package com.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.dto.CitizenDTO.CitizenRegister;
 import com.entity.Citizen;
 
+@Component
 public class CitizenMapper {
     public Citizen RegisterToEntity(CitizenRegister citizenRegister) {
         Citizen citizen = new Citizen();

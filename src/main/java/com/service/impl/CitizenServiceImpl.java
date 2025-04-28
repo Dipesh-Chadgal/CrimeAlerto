@@ -2,7 +2,6 @@ package com.service.impl;
 
 
 import com.repository.CitizenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dto.CitizenDTO.CitizenRegister;
@@ -13,8 +12,8 @@ import com.mapper.CitizenMapper;
 public class CitizenServiceImpl {
 
 
-    private final CitizenMapper citizenMapper;
-    private final CitizenRepository citizenRepository;
+    private CitizenMapper citizenMapper;
+    private CitizenRepository citizenRepository;
 
     public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository) {
         this.citizenMapper = citizenMapper;
@@ -26,4 +25,6 @@ public class CitizenServiceImpl {
         return citizenRepository.save(citizen);
 
     }
+
+    
 }
