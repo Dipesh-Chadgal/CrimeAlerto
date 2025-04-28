@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.dto.CitizenDTO.CitizenRegister;
 import com.entity.Citizen;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CitizenMapper {

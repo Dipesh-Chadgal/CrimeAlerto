@@ -15,6 +15,7 @@ public class CitizenServiceImpl {
     private CitizenMapper citizenMapper;
     private CitizenRepository citizenRepository;
 
+    @Autowired
     public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository) {
         this.citizenMapper = citizenMapper;
         this.citizenRepository = citizenRepository;
