@@ -1,6 +1,7 @@
 package com.service.impl;
 
 
+import com.exceptions.NoSuchUserFoundException;
 import com.repository.CitizenRepository;
 import com.service.CitizenService;
 
@@ -43,11 +44,11 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     public String login(CitizenLogin citizenLogin) {
-        Optional<Citizen> citizen=citizenRepository.findByEmail(citizenLogin.getEmail());
-        if(citizen.isEmpty()||!passwordEncoder.matches(citizenLogin.getPassword(), citizen.get().getPassword())){
+        Citizen citizen=citizenRepository.findByEmail(citizenLogin.getEmail()).orElseThrow(() -> new NoSuchUserFoundException("No User found"));
+        if(!passwordEncoder.matches(citizenLogin.getPassword(), citizen.getPassword())){
             throw new RuntimeException("Invalid email or password");
         }
-        return jwtUtil.generateToken(citizen.get().getEmail());
+        return jwtUtil.generateToken(citizen.getEmail());
     }
 
     

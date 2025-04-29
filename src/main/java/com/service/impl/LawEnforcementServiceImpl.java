@@ -8,6 +8,7 @@ import com.dto.LawEnforcementDTO.LawEnforcementLogin;
 import com.dto.LawEnforcementDTO.LawEnforcementRegister;
 import com.entity.Citizen;
 import com.entity.LawEnforcement;
+import com.exceptions.NoSuchUserFoundException;
 import com.mapper.CitizenMapper;
 import com.mapper.LawEnforcementMapper;
 import com.repository.CitizenRepository;
@@ -16,10 +17,12 @@ import com.service.LawEnforcementService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 
 @Service
+@Validated
 public class LawEnforcementServiceImpl implements LawEnforcementService {
 
     private final LawEnforcementMapper lawEnforcementMapper;
@@ -46,11 +49,11 @@ public class LawEnforcementServiceImpl implements LawEnforcementService {
 
     @Override
     public String login(LawEnforcementLogin lawEnforcementLogin) {
-        Optional<LawEnforcement> lawEnforcement=lawEnforcementRepository.findByEmail(lawEnforcementLogin.getEmail());
-        if(lawEnforcement.isEmpty()||!passwordEncoder.matches(lawEnforcementLogin.getPassword(), lawEnforcement.get().)){
+        LawEnforcement lawEnforcement=lawEnforcementRepository.findByEmail(lawEnforcementLogin.getEmail()).orElseThrow(() -> new NoSuchUserFoundException("No User found"));
+        if(!passwordEncoder.matches(lawEnforcementLogin.getPassword(), lawEnforcement.getPassword())){
             throw new RuntimeException("Invalid email or password");
         }
-        return jwtUtil.generateToken(lawEnforcement.get().getPoliceStationEmail());
+        return jwtUtil.generateToken(lawEnforcement.getPoliceStationEmail());
     }
 
 

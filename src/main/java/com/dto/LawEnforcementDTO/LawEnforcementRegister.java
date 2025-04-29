@@ -9,9 +9,18 @@ public class LawEnforcementRegister {
     private Long policeStationContactNo;
     private String sho;
     private String address;
-    private List<Integer> assignedComplaintIds;
+    private String password;
 
     // Getters and Setters
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getPoliceStationName() {
         return policeStationName;
     }
@@ -50,14 +59,6 @@ public class LawEnforcementRegister {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public List<Integer> getAssignedComplaintIds() {
-        return assignedComplaintIds;
-    }
-
-    public void setAssignedComplaintIds(List<Integer> assignedComplaintIds) {
-        this.assignedComplaintIds = assignedComplaintIds;
     }
 
 }

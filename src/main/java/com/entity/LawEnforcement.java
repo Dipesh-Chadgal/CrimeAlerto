@@ -16,7 +16,10 @@ public class LawEnforcement {
     private String policeStationName;
 
     @Column(name = "police_station_email", nullable = false, unique = true)
-    private String policeStationEmail;
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "police_station_contactNo", nullable = false)
     private Long policeStationContactNo;
@@ -48,11 +51,11 @@ public class LawEnforcement {
     }
 
     public String getPoliceStationEmail() {
-        return policeStationEmail;
+        return email;
     }
 
-    public void setPoliceStationEmail(String policeStationEmail) {
-        this.policeStationEmail = policeStationEmail;
+    public void setPoliceStationEmail(String email) {
+        this.email = email;
     }
 
     public Long getPoliceStationContactNo() {
@@ -86,4 +89,14 @@ public class LawEnforcement {
     public void setAssignedComplaints(List<Complaint> assignedComplaints) {
         this.assignedComplaints = assignedComplaints;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }
