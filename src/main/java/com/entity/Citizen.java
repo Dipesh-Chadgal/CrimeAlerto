@@ -19,7 +19,7 @@ public class Citizen {
     private String name;
 
     @Column(name = "phone_number", nullable = false)
-    private Integer phoneNumber;
+    private Long phoneNumber;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -57,11 +57,11 @@ public class Citizen {
         this.name = name;
     }
 
-    public Integer getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

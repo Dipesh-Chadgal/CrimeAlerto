@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 public class CitizenRegister {
     private String name;
     private String email;
-    private Integer phoneNumber;
+    private Long phoneNumber;
     @CreationTimestamp
     private LocalDateTime createdAt;
     private String password;
@@ -28,11 +28,11 @@ public class CitizenRegister {
         this.email = email;
     }
 
-    public Integer getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -52,7 +52,7 @@ public class CitizenRegister {
         this.password = password;
     }
 
-    public CitizenRegister(String name, String email, Integer phoneNumber, LocalDateTime createdAt, String password) {
+    public CitizenRegister(String name, String email, Long phoneNumber, LocalDateTime createdAt, String password) {
         super();
         this.name = name;
         this.email = email;

@@ -1,6 +1,7 @@
-package com.dto.CitizenDTO;
+package com.dto.LawEnforcementDTO;
 
-public class CitizenLogin {
+public class LawEnforcementLogin {
+
     private String email;
     private String password;
 
@@ -20,12 +21,11 @@ public class CitizenLogin {
         this.password = password;
     }
 
-    public CitizenLogin(String email, String password) {
-        super();
+    public LawEnforcementLogin(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public CitizenLogin() {
+    public LawEnforcementLogin() {
     }
 }

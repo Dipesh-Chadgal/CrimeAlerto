@@ -1,44 +1,17 @@
-package com.entity;
 
-import jakarta.persistence.*;
+package com.dto.LawEnforcementDTO;
+
 import java.util.List;
 
-@Entity
-@Table(name = "Law_Enforcement")
-public class LawEnforcement {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UUID")
-    private Integer uuid;
-
-    @Column(name = "police_station_name", nullable = false)
+public class LawEnforcementRegister {
     private String policeStationName;
-
-    @Column(name = "police_station_email", nullable = false, unique = true)
     private String policeStationEmail;
-
-    @Column(name = "police_station_contactNo", nullable = false)
     private Long policeStationContactNo;
-
-    @Column(name = "SHO", nullable = false)
     private String sho;
-
-    @Column(name = "Address", nullable = false)
     private String address;
-
-    @OneToMany(mappedBy = "assignedTo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Complaint> assignedComplaints;
+    private List<Integer> assignedComplaintIds;
 
     // Getters and Setters
-    public Integer getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(Integer uuid) {
-        this.uuid = uuid;
-    }
-
     public String getPoliceStationName() {
         return policeStationName;
     }
@@ -79,11 +52,12 @@ public class LawEnforcement {
         this.address = address;
     }
 
-    public List<Complaint> getAssignedComplaints() {
-        return assignedComplaints;
+    public List<Integer> getAssignedComplaintIds() {
+        return assignedComplaintIds;
     }
 
-    public void setAssignedComplaints(List<Complaint> assignedComplaints) {
-        this.assignedComplaints = assignedComplaints;
+    public void setAssignedComplaintIds(List<Integer> assignedComplaintIds) {
+        this.assignedComplaintIds = assignedComplaintIds;
     }
+
 }
