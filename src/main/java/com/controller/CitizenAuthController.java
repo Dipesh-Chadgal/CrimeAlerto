@@ -10,26 +10,29 @@ import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.CitizenDTO.CitizenRegister;
 import com.service.CitizenService;
 import com.entity.Citizen;
+import com.Tokens.CitizenJwtUtil;
 
 @RestController
 @RequestMapping("/api/citizen")
 public class CitizenAuthController {
     private CitizenService citizenService;
-
-    public CitizenAuthController(CitizenService citizenService) {
+    private CitizenJwtUtil jwtUtil;
+    public CitizenAuthController(CitizenService citizenService,CitizenJwtUtil jwtUtil) {
         this.citizenService = citizenService;
+        this.jwtUtil=jwtUtil;
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody CitizenRegister citizenRegister) {
         Citizen citizen = citizenService.register(citizenRegister);
-        return ResponseEntity.ok("User registered successfully " + citizen.getName());
+        String token = jwtUtil.generateToken(citizen.getEmail());
+        return ResponseEntity.ok("User registered successfully. Token : " + token);
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody CitizenLogin CitizenLogin) {
         String token = citizenService.login(CitizenLogin);
-        return ResponseEntity.ok("Login successfull, token " + token);
+        return ResponseEntity.ok("Login successfull, Token : " + token);
     }
 
 }

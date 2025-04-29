@@ -4,9 +4,13 @@ package com.service.impl;
 import com.repository.CitizenRepository;
 import com.service.CitizenService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Tokens.CitizenJwtUtil;
 import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.CitizenDTO.CitizenRegister;
 import com.entity.Citizen;
@@ -18,19 +22,32 @@ public class CitizenServiceImpl implements CitizenService {
 
     private CitizenMapper citizenMapper;
     private CitizenRepository citizenRepository;
-    public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository) {
+    private final PasswordEncoder passwordEncoder;
+    private CitizenJwtUtil jwtUtil;
+    public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository,@Lazy PasswordEncoder passwordEncoder,CitizenJwtUtil jwtUtil) {
         this.citizenMapper = citizenMapper;
         this.citizenRepository = citizenRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil=jwtUtil;
     }
     
+    @Override
     public Citizen register(CitizenRegister citizenRegister){
-        Citizen citizen=citizenMapper.RegisterToEntity(citizenRegister);
-        return citizenRepository.save(citizen);
+       Optional<Citizen> citizenOptional = citizenRepository.findByEmail(citizenRegister.getEmail());
+       if(citizenOptional.isPresent()){
+           throw new RuntimeException("Citizen already exists with this email");
+       }    
+         Citizen citizen = citizenMapper.RegisterToEntity(citizenRegister);
+         return citizenRepository.save(citizen);
     }
 
     @Override
     public String login(CitizenLogin citizenLogin) {
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
+        Optional<Citizen> citizen=citizenRepository.findByEmail(citizenLogin.getEmail());
+        if(citizen.isEmpty()||!passwordEncoder.matches(citizenLogin.getPassword(), citizen.get().getPassword())){
+            throw new RuntimeException("Invalid email or password");
+        }
+        return jwtUtil.generateToken(citizen.get().getEmail());
     }
 
     
