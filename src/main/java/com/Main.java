@@ -15,7 +15,6 @@ public class Main {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
 }
