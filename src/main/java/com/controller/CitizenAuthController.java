@@ -10,16 +10,17 @@ import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.CitizenDTO.CitizenRegister;
 import com.service.CitizenService;
 import com.entity.Citizen;
-import com.Tokens.CitizenJwtUtil;
+import com.Tokens.CommonJwtUtil;
 
 @RestController
 @RequestMapping("/api/citizen")
 public class CitizenAuthController {
-    private CitizenService citizenService;
-    private CitizenJwtUtil jwtUtil;
-    public CitizenAuthController(CitizenService citizenService,CitizenJwtUtil jwtUtil) {
+    private final CitizenService citizenService;
+    private final CommonJwtUtil jwtUtil;
+
+    public CitizenAuthController(CitizenService citizenService, CommonJwtUtil jwtUtil) {
         this.citizenService = citizenService;
-        this.jwtUtil=jwtUtil;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")

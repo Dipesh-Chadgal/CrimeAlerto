@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.Tokens.CitizenJwtUtil;
+import com.Tokens.CommonJwtUtil;
 import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.CitizenDTO.CitizenRegister;
 import com.entity.Citizen;
@@ -23,8 +23,8 @@ public class CitizenServiceImpl implements CitizenService {
     private CitizenMapper citizenMapper;
     private CitizenRepository citizenRepository;
     private final PasswordEncoder passwordEncoder;
-    private CitizenJwtUtil jwtUtil;
-    public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository,@Lazy PasswordEncoder passwordEncoder,CitizenJwtUtil jwtUtil) {
+    private CommonJwtUtil jwtUtil;
+    public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository, @Lazy PasswordEncoder passwordEncoder, CommonJwtUtil jwtUtil) {
         this.citizenMapper = citizenMapper;
         this.citizenRepository = citizenRepository;
         this.passwordEncoder = passwordEncoder;

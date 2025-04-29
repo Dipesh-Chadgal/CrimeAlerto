@@ -8,7 +8,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CitizenJwtUtil {
+public class CommonJwtUtil {
     private static final String SECRET_KEY="Lifeisacanvasofendlesspossibilitiespaintedwiththecolorsofdreamsanddetermination";
     private static final long EXPIRATION_TIME=1000*60*60*12;
 
