@@ -30,6 +30,17 @@ public class LawEnforcement {
     @Column(name = "Address", nullable = false)
     private String address;
 
+    @Column(name ="Role")
+    private String role = "LAW_ENFORCEMENT"; // Default role for law enforcement
+
+    // Other fields, getters, and setters
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
     @OneToMany(mappedBy = "assignedTo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Complaint> assignedComplaints;
 

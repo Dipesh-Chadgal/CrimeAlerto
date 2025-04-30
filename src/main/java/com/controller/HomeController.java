@@ -12,4 +12,8 @@ public class HomeController {
     public String home() {
         return "Welcome to the Home Page!";
     }
+    @GetMapping("/test")
+    public String law(){
+        return "law enforcement";
+    }
 }
