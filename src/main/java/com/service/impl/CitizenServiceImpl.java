@@ -1,6 +1,5 @@
 package com.service.impl;
 
-
 import com.exceptions.NoSuchUserFoundException;
 import com.repository.CitizenRepository;
 import com.service.CitizenService;

@@ -2,16 +2,11 @@ package com.service.impl;
 
 
 import com.Tokens.CommonJwtUtil;
-import com.dto.CitizenDTO.CitizenLogin;
-import com.dto.CitizenDTO.CitizenRegister;
 import com.dto.LawEnforcementDTO.LawEnforcementLogin;
 import com.dto.LawEnforcementDTO.LawEnforcementRegister;
-import com.entity.Citizen;
 import com.entity.LawEnforcement;
 import com.exceptions.NoSuchUserFoundException;
-import com.mapper.CitizenMapper;
 import com.mapper.LawEnforcementMapper;
-import com.repository.CitizenRepository;
 import com.repository.LawEnforcementRepository;
 import com.service.LawEnforcementService;
 import org.springframework.context.annotation.Lazy;

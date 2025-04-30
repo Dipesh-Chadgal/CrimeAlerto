@@ -4,7 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
-
+import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,5 +19,19 @@ public class CommonJwtUtil {
         .setExpiration(new Date(System.currentTimeMillis()+EXPIRATION_TIME))
         .signWith(SignatureAlgorithm.HS256,SECRET_KEY)
         .compact();
+    }
+
+    public String extractEmail(String token){
+        return getClaims(token).getSubject();
+    }
+    public boolean validateToken(String token,String email){
+        return email.equals(extractEmail(token))&&!isTokenExpired(token);
+    }
+    private boolean isTokenExpired(String token){
+        return getClaims(token).getExpiration().before(new Date());
+
+    }
+    private Claims getClaims(String token){
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 }
