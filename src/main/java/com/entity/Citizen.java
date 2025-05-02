@@ -33,6 +33,18 @@ public class Citizen {
     @Column(name = "location_long")
     private Double locationLong;
 
+    @Column(name ="Role")
+    private String role = "CITIZEN"; // Default role for citizens
+
+    // Other fields, getters, and setters
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

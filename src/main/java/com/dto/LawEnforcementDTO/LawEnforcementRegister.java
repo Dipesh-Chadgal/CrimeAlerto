@@ -1,8 +1,6 @@
 
 package com.dto.LawEnforcementDTO;
 
-import java.util.List;
-
 public class LawEnforcementRegister {
     private String policeStationName;
     private String policeStationEmail;

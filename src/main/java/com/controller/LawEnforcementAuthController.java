@@ -32,6 +32,9 @@ public class LawEnforcementAuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LawEnforcementLogin lawEnforcementLogin) {
+        if (lawEnforcementLogin.getEmail() == null) {
+            return ResponseEntity.badRequest().body("Email is missing in the request");
+        }
         String token = lawEnforcementService.login(lawEnforcementLogin);
         return ResponseEntity.ok("Login successfull, Token : " + token);
     }
