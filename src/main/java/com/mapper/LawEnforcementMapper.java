@@ -24,7 +24,6 @@ public class LawEnforcementMapper {
                 lawEnforcement.setPoliceStationContactNo(lawEnforcementRegister.getPoliceStationContactNo());
                 lawEnforcement.setSho(lawEnforcementRegister.getSho());
                 lawEnforcement.setAddress(lawEnforcementRegister.getAddress());
-                // lawEnforcement.setPassword(lawEnforcementRegister.getPassword());
                 lawEnforcement.setPassword(passwordEncoder.encode(lawEnforcementRegister.getPassword()));
                return lawEnforcement;
     }
