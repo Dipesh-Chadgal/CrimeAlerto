@@ -9,31 +9,32 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.CitizenDTO.CitizenRegister;
 import com.service.CitizenService;
-import com.entity.Citizen;
-import com.Tokens.CommonJwtUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/citizen")
 public class CitizenAuthController {
     private final CitizenService citizenService;
-    private final CommonJwtUtil jwtUtil;
 
-    public CitizenAuthController(CitizenService citizenService, CommonJwtUtil jwtUtil) {
+    public CitizenAuthController(CitizenService citizenService) {
         this.citizenService = citizenService;
-        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody CitizenRegister citizenRegister) {
-        Citizen citizen = citizenService.register(citizenRegister);
-        String token = jwtUtil.generateToken(citizen.getEmail());
-        return ResponseEntity.ok("User registered successfully. Token : " + token);
-    }
+        citizenService.register(citizenRegister);
+        return ResponseEntity.ok("User registered successfully. Please log in.");    }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody CitizenLogin CitizenLogin) {
+    public ResponseEntity<String> login(@RequestBody CitizenLogin CitizenLogin, HttpServletResponse response) {
         String token = citizenService.login(CitizenLogin);
-        return ResponseEntity.ok("Login successfull, Token : " + token);
+        Cookie cookie = new Cookie("auth_token", token);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(10*60*60);
+        response.addCookie(cookie);
+        return ResponseEntity.ok("Login successfull. Redirecting to Citizen Dashboard "+token);
     }
 
 }

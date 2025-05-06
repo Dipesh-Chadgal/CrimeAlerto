@@ -2,10 +2,8 @@ package com.service.impl;
 
 
 import com.Tokens.CommonJwtUtil;
-import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.LawEnforcementDTO.LawEnforcementLogin;
 import com.dto.LawEnforcementDTO.LawEnforcementRegister;
-import com.entity.Citizen;
 import com.entity.LawEnforcement;
 import com.exceptions.NoSuchUserFoundException;
 import com.mapper.LawEnforcementMapper;
@@ -38,7 +36,7 @@ public class LawEnforcementServiceImpl implements LawEnforcementService {
     public LawEnforcement register(LawEnforcementRegister lawEnforcementRegister){
         Optional<LawEnforcement> lawEnforcementOptional = lawEnforcementRepository.findByEmail(lawEnforcementRegister.getPoliceStationEmail());
         if(lawEnforcementOptional.isPresent()){
-            throw new RuntimeException("Law Enforcement already exists with this email");
+            throw new RuntimeException("LawEnforcement already exists with this email");
         }
         LawEnforcement lawEnforcement = lawEnforcementMapper.RegisterToEntity(lawEnforcementRegister);
         return lawEnforcementRepository.save(lawEnforcement);

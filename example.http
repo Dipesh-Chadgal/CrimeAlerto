@@ -1,0 +1,60 @@
+### Register Citizen
+POST http://localhost:9090/api/citizen/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "password123",
+  "phoneNumber": 9876543210
+}
+
+###
+
+### Login Citizen
+POST http://localhost:9090/api/citizen/login
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com",
+    "password": "password123"
+}
+
+###
+
+### Access Citizen Dashboard (Authenticated)
+GET http://localhost:9090/api/home
+Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjQzMzkyOSwiZXhwIjoxNzQ2NDY5OTI5fQ.XcCBsL-wCYMs_8gwJ2xkNs5W9hPT70ikkMYr9LNIweM
+
+
+
+
+### Register Law Enforcement
+POST http://localhost:9090/api/lawEnforcement/register
+Content-Type: application/json
+
+{
+  "policeStationName": "2",
+  "policeStationEmail": "2",
+  "policeStationContactNo": 2,
+  "sho": "2",
+  "address": "2",
+  "password": "2"
+}
+
+###
+
+### Login Law Enforcement
+POST http://localhost:9090/api/lawEnforcement/login
+Content-Type: application/json
+
+{
+    "email": "2",
+    "password": "2"
+}
+
+###
+
+### Access Law Enforcement Dashboard (Authenticated)
+GET http://localhost:9090/api/home/test
+Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzQ2NDMzNjcxLCJleHAiOjE3NDY0Njk2NzF9.wtOxGdWvG7o7D6gH6igM6Nksy7db3t0V5K2KCatObFY

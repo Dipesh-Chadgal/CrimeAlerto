@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -33,32 +34,40 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        String authorizationHeader = request.getHeader("Authorization");
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(7);
-            String email = jwtUtil.extractEmail(token);
-
-            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // Check if the user is a Citizen
-                Citizen citizen = citizenRepository.findByEmail(email).orElse(null);
-                if (citizen != null && jwtUtil.validateToken(token, citizen.getEmail())) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            citizen, null, List.of(() -> "CITIZEN")); // Assign CITIZEN role
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-
-                // Check if the user is a Law Enforcement
-                LawEnforcement lawEnforcement = lawEnforcementRepository.findByEmail(email).orElse(null);
-                if (lawEnforcement != null && jwtUtil.validateToken(token, lawEnforcement.getPoliceStationEmail())) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            lawEnforcement, null, List.of(() -> "LAW_ENFORCEMENT")); // Assign LAW_ENFORCEMENT role
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                
+        String token = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("auth_token".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
                 }
             }
         }
+    
+        if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            String email = jwtUtil.extractEmail(token);
+    
+            if (email != null) {
+                Citizen citizen = citizenRepository.findByEmail(email).orElse(null);
+                if (citizen != null && jwtUtil.validateToken(token, citizen.getEmail())) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            citizen, null, List.of(() -> "CITIZEN"));
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+
+                LawEnforcement law = lawEnforcementRepository.findByEmail(email).orElse(null);
+                if (law != null && jwtUtil.validateToken(token, law.getPoliceStationEmail())) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        law, null, List.of(() -> "LAW_ENFORCEMENT"));
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+
+            }
+        }
+    
         chain.doFilter(request, response);
     }
 }

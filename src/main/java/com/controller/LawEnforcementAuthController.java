@@ -1,10 +1,12 @@
 package com.controller;
 
-import com.Tokens.CommonJwtUtil;
 import com.dto.LawEnforcementDTO.LawEnforcementLogin;
 import com.dto.LawEnforcementDTO.LawEnforcementRegister;
-import com.entity.LawEnforcement;
 import com.service.LawEnforcementService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,26 +18,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/lawEnforcement")
 public class LawEnforcementAuthController {
     private final LawEnforcementService lawEnforcementService;
-    private final CommonJwtUtil jwtUtil;
 
-    public LawEnforcementAuthController(LawEnforcementService lawEnforcementService, CommonJwtUtil jwtUtil) {
+    public LawEnforcementAuthController(LawEnforcementService lawEnforcementService) {
         this.lawEnforcementService = lawEnforcementService;
-        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody LawEnforcementRegister lawEnforcementRegister) {
-        LawEnforcement lawEnforcement = lawEnforcementService.register(lawEnforcementRegister);
-        return ResponseEntity.ok("User registered successfully.");
+        lawEnforcementService.register(lawEnforcementRegister);
+        return ResponseEntity.ok("User registered successfully");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LawEnforcementLogin lawEnforcementLogin) {
+    public ResponseEntity<String> login(@RequestBody LawEnforcementLogin lawEnforcementLogin, HttpServletResponse response) {
         if (lawEnforcementLogin.getEmail() == null) {
             return ResponseEntity.badRequest().body("Email is missing in the request");
         }
         String token = lawEnforcementService.login(lawEnforcementLogin);
-        return ResponseEntity.ok("Login successfull, Token : " + token);
+         Cookie cookie = new Cookie("auth_token", token);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(10*60*60);
+        response.addCookie(cookie);
+        return ResponseEntity.ok("Login successfull. Redirecting to LawEnforcement Portal. "+ token);
     }
 
 }
