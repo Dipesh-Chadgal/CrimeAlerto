@@ -26,8 +26,7 @@ public class LawEnforcementAuthController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody LawEnforcementRegister lawEnforcementRegister) {
         LawEnforcement lawEnforcement = lawEnforcementService.register(lawEnforcementRegister);
-        String token = jwtUtil.generateToken(lawEnforcement.getPoliceStationEmail());
-        return ResponseEntity.ok("User registered successfully. Token : " + token);
+        return ResponseEntity.ok("User registered successfully.");
     }
 
     @PostMapping("/login")

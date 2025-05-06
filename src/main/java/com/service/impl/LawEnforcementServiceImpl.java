@@ -38,7 +38,7 @@ public class LawEnforcementServiceImpl implements LawEnforcementService {
     public LawEnforcement register(LawEnforcementRegister lawEnforcementRegister){
         Optional<LawEnforcement> lawEnforcementOptional = lawEnforcementRepository.findByEmail(lawEnforcementRegister.getPoliceStationEmail());
         if(lawEnforcementOptional.isPresent()){
-            throw new RuntimeException("Citizen already exists with this email");
+            throw new RuntimeException("Law Enforcement already exists with this email");
         }
         LawEnforcement lawEnforcement = lawEnforcementMapper.RegisterToEntity(lawEnforcementRegister);
         return lawEnforcementRepository.save(lawEnforcement);
