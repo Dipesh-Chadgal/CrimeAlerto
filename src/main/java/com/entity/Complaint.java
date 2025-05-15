@@ -3,6 +3,8 @@ package com.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "Complaints")
 public class Complaint {
@@ -30,6 +32,7 @@ public class Complaint {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

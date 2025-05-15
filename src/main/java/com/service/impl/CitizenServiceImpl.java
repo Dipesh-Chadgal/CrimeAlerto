@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.Tokens.CommonJwtUtil;
+import com.tokens.CommonJwtUtil;
 import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.CitizenDTO.CitizenRegister;
 import com.entity.Citizen;

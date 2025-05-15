@@ -1,4 +1,4 @@
-package com.Tokens;
+package com.tokens;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

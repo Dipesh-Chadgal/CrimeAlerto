@@ -24,8 +24,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/lawEnforcement/register", "/api/lawEnforcement/login").permitAll()
                 
                 // Role-based access control
-                .requestMatchers("/api/home").hasAuthority("CITIZEN") // Only citizens can access /api/home
-                .requestMatchers("/api/home/test").hasAuthority("LAW_ENFORCEMENT") // Only law enforcement can access /api/home/test
+                .requestMatchers("/api/home","/api/complaints").hasAuthority("CITIZEN") // Only citizens can access /api/home
+                .requestMatchers("/api/test","/api/complaints/all").hasAuthority("LAW_ENFORCEMENT") // Only law enforcement can access /api/home/test
                 
                 // All other endpoints require authentication
                 .anyRequest().authenticated()
@@ -41,3 +41,33 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
+
+
+
+// @Configuration
+// public class SecurityConfig {
+
+//     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+//     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+//         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+//     }
+
+//     @Bean
+//     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//         http.csrf().disable()
+//             .authorizeHttpRequests(auth -> auth
+//                 // Permit public access to /api/complaints
+//                 .requestMatchers("/api/complaints").permitAll()
+                
+//                 // Other endpoints
+//                 .requestMatchers("/api/citizen/register", "/api/citizen/login").permitAll()
+//                 .requestMatchers("/api/lawEnforcement/register", "/api/lawEnforcement/login").permitAll()
+//                 .anyRequest().authenticated()
+//             )
+//             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+//         return http.build();
+//     }
+// }

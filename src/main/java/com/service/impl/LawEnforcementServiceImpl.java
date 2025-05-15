@@ -1,7 +1,7 @@
 package com.service.impl;
 
 
-import com.Tokens.CommonJwtUtil;
+import com.tokens.CommonJwtUtil;
 import com.dto.LawEnforcementDTO.LawEnforcementLogin;
 import com.dto.LawEnforcementDTO.LawEnforcementRegister;
 import com.entity.LawEnforcement;

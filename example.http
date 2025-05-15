@@ -3,10 +3,10 @@ POST http://localhost:9090/api/citizen/register
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "password": "password123",
-  "phoneNumber": 9876543210
+  "name": "John",
+  "email": "gmail.com",
+  "password": "1234",
+  "phoneNumber": 1234567
 }
 
 ###
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ### Access Citizen Dashboard (Authenticated)
 GET http://localhost:9090/api/home
-Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjQzMzkyOSwiZXhwIjoxNzQ2NDY5OTI5fQ.XcCBsL-wCYMs_8gwJ2xkNs5W9hPT70ikkMYr9LNIweM
+Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjUxNjI1NSwiZXhwIjoxNzQ2NTUyMjU1fQ.MyXpMLI_R_7dPvyWUjmTICcWVkXd7EhFcOqkXrN5qxA
 
 
 
@@ -56,5 +56,27 @@ Content-Type: application/json
 ###
 
 ### Access Law Enforcement Dashboard (Authenticated)
-GET http://localhost:9090/api/home/test
-Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzQ2NDMzNjcxLCJleHAiOjE3NDY0Njk2NzF9.wtOxGdWvG7o7D6gH6igM6Nksy7db3t0V5K2KCatObFY
+GET http://localhost:9090/api/test
+Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzQ2NTIxNjE0LCJleHAiOjE3NDY1NTc2MTR9.KQd91FrfZqCqe5Z-_NMe40M-y0w8t1d6ytokuyOuMpk
+
+
+### Create Complaint
+POST http://localhost:9090/api/complaints
+Content-Type: application/json
+# Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NjUxNjI1NSwiZXhwIjoxNzQ2NTUyMjU1fQ.MyXpMLI_R_7dPvyWUjmTICcWVkXd7EhFcOqkXrN5qxA
+
+{
+    "title": "Theft Incident",
+    "description": "A theft occurred at my residence.",
+    "supportingDocument": "theft_report.pdf",
+    "incidentLocationLat": 28.7041,
+    "incidentLocationLong": 77.1025,
+    "status": "Pending",
+    "witnessId": 1,
+    "assignedToId": 1
+}
+
+### Find All Complaints
+
+GET http://localhost:9090/api/complaints/all
+Cookie: auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzQ3MjE3MDg0LCJleHAiOjE3NDcyNTMwODR9.lkgGGIqLSgV-2P15asnJhZ93Kc46QZmnz8mE8uHGn8Q
