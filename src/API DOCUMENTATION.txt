@@ -11,7 +11,7 @@ CITIZEN
     "phoneNumber" : 873249234612,
     "password" : "ThisIsMyPassword"
 }
-s
+
 /api/citizen/login
 
 {

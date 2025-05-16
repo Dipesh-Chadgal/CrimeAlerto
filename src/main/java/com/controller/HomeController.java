@@ -1,11 +1,7 @@
 package com.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.dto.ComplaintDTO;;
 
 @RestController
@@ -22,7 +18,7 @@ public class HomeController {
     }
 
     @PostMapping("/complaints")
-    public ResponseEntity<String> createComplaint(@ResponseBody ComplaintDTO){
-        
+    public ResponseEntity<String> createComplaint(@RequestBody ComplaintDTO complaint){
+        return ResponseEntity.ok("ok");
     }
 }

@@ -20,10 +20,11 @@ import com.mapper.CitizenMapper;
 public class CitizenServiceImpl implements CitizenService {
 
 
-    private CitizenMapper citizenMapper;
-    private CitizenRepository citizenRepository;
+    private final CitizenMapper citizenMapper;
+    private final CitizenRepository citizenRepository;
     private final PasswordEncoder passwordEncoder;
-    private CommonJwtUtil jwtUtil;
+    private final CommonJwtUtil jwtUtil;
+
     public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository, @Lazy PasswordEncoder passwordEncoder, CommonJwtUtil jwtUtil) {
         this.citizenMapper = citizenMapper;
         this.citizenRepository = citizenRepository;
