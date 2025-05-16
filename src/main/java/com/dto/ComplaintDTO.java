@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class ComplaintDTO {
 
     private Integer uuid;
     private String title;
+    @NotEmpty(message = "Description cannot be empty")
     private String description;
     private String supportingDocument;
     private Double incidentLocationLat;
@@ -114,5 +117,15 @@ public class ComplaintDTO {
     }
 
     public ComplaintDTO(){}
+
+    @Override
+    public String toString() {
+        return "ComplaintDTO [uuid=" + uuid + ", title=" + title + ", description=" + description
+                + ", supportingDocument=" + supportingDocument + ", incidentLocationLat=" + incidentLocationLat
+                + ", incidentLocationLong=" + incidentLocationLong + ", status=" + status + ", createdAt=" + createdAt
+                + ", witnessId=" + witnessId + ", assignedToId=" + assignedToId + "]";
+    }
+
+    
 
 }
