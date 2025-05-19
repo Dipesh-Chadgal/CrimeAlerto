@@ -32,6 +32,6 @@ public class CommonJwtUtil {
 
     }
     private Claims getClaims(String token){
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).getBody();
     }
 }
