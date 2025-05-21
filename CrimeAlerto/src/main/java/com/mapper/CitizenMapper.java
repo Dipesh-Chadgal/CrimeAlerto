@@ -27,13 +27,4 @@ public class CitizenMapper {
         citizen.setPassword(passwordEncoder.encode(citizenRegister.getPassword()));
         return citizen;
     }
-
-    public CitizenRegister EntityToRegister(Citizen citizen) {
-        CitizenRegister citizenRegister = new CitizenRegister();
-        citizenRegister.setName(citizen.getName());
-        citizenRegister.setEmail(citizen.getEmail());
-        citizenRegister.setPhoneNumber(citizen.getPhoneNumber());
-        citizenRegister.setCreatedAt(citizen.getCreatedAt());
-        return citizenRegister;
-    }
 }

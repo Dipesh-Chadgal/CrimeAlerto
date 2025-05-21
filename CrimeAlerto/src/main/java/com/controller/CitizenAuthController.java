@@ -1,6 +1,8 @@
 package com.controller;
 
-import com.entity.Citizen;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +12,9 @@ import com.service.CitizenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/citizen")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin("http://localhost:5173")
 public class CitizenAuthController {
     private final CitizenService citizenService;
 
@@ -28,19 +28,20 @@ public class CitizenAuthController {
         return ResponseEntity.ok("User registered successfully. Please log in.");    }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody CitizenLogin CitizenLogin, HttpServletResponse response) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody CitizenLogin CitizenLogin, HttpServletResponse response) {
         String token = citizenService.login(CitizenLogin);
+        String UUID = citizenService.fetchUUID(CitizenLogin.getEmail());
         Cookie cookie = new Cookie("auth_token", token);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         cookie.setMaxAge(10*60*60);
         response.addCookie(cookie);
-        return ResponseEntity.ok("Login successfull. Redirecting to Citizen Dashboard "+token);
+
+        Map<String,String> res = new HashMap<>();
+    res.put("message", "Login successful");
+    res.put("token", token); 
+    res.put("UUID", UUID);
+        return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<CitizenRegister>> getAll() {
-        List<CitizenRegister> citizens = citizenService.getAll();
-        return ResponseEntity.ok(citizens);
-    }
 }

@@ -1,10 +1,10 @@
 package com.service;
 
+import java.util.Optional;
+
 import com.dto.CitizenDTO.CitizenLogin;
 import com.dto.CitizenDTO.CitizenRegister;
 import com.entity.Citizen;
-
-import java.util.List;
 
 public interface CitizenService {
 
@@ -12,6 +12,9 @@ public interface CitizenService {
 
     String login(CitizenLogin citizenLogin);
 
+    String fetchUUID(String email);
 
-    List<CitizenRegister> getAll();
+    Optional<Citizen> findById(Long citizenId);
+
+
 }

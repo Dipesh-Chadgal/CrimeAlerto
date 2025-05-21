@@ -4,7 +4,6 @@ import com.exceptions.NoSuchUserFoundException;
 import com.repository.CitizenRepository;
 import com.service.CitizenService;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.context.annotation.Lazy;
@@ -21,11 +20,10 @@ import com.mapper.CitizenMapper;
 public class CitizenServiceImpl implements CitizenService {
 
 
-    private final CitizenMapper citizenMapper;
-    private final CitizenRepository citizenRepository;
+    private CitizenMapper citizenMapper;
+    private CitizenRepository citizenRepository;
     private final PasswordEncoder passwordEncoder;
-    private final CommonJwtUtil jwtUtil;
-
+    private CommonJwtUtil jwtUtil;
     public CitizenServiceImpl(CitizenMapper citizenMapper, CitizenRepository citizenRepository, @Lazy PasswordEncoder passwordEncoder, CommonJwtUtil jwtUtil) {
         this.citizenMapper = citizenMapper;
         this.citizenRepository = citizenRepository;
@@ -53,12 +51,24 @@ public class CitizenServiceImpl implements CitizenService {
     }
 
     @Override
-    public List<CitizenRegister> getAll() {
-       return citizenRepository.findAll()
-                .stream()
-                .map(citizenMapper::EntityToRegister)
-                .toList();
+    public String fetchUUID(String email) {
+        String UUID = null;
+        
+        UUID = citizenRepository.getUUIDByEmail(email);
+        if(UUID == null){
+            throw new RuntimeException("User Not Found");
+        }
+
+        return UUID;
     }
 
+    @Override
+    public Optional<Citizen> findById(Long citizenId) {
+        
+        return citizenRepository.findByUuid(citizenId);
+    }
 
+    
+
+    
 }
